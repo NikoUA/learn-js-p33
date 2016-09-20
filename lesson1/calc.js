@@ -1,25 +1,48 @@
-/**
- * Разработать логику работы калькулятора
- * Задача при n заданых чисел и при n-1 знаков, посчитать правильный результат выполнения всех операций
- * Важно соблюдать приоритетность выполнения операций
- */
-var values = [16, 2332321, 34343, 123, 434, 123, 77];
-var operators = ["+", "-", "+", "/", "-", "+"];
+var values = [6, 2, 8, 4, 7, 5, 9];
+var operators = ["+", "-", "*", "/", "-", "+"];
 var result = 0;
 
-/**
- ======================================
- YOUR CODE
- ======================================
- */
-var sum = function(a, b) {
 
+var sum = function(a, b) {
+	return a+b;
+};
+var min = function(a, b) {
+	return a-b;
+};
+var mnozh = function(a, b) {
+	return a*b;
+};
+var del = function(a, b) {
+	return a/b;
 };
 
-
 for (var i = 0; i < operators.length; i++) {
-
+	if (operators[i] == "*") {
+		var m = mnozh(values[i], values[i+1]);
+		operators.splice(i, 1);
+		values.splice(i, 2, m);
+		i--;
+	}
+	else if (operators[i] == "/") {
+		var d = del(values[i], values[i+1]);
+		operators.splice(i, 1);
+		values.splice(i, 2, d);
+		i--;
+	}
 }
-
-
-console.log(result);
+for (var o = 0; 0 < operators.length; o++) {
+	if (operators[o] == "+") {
+		var s = sum(values[o], values[0+1]);
+		operators.splice(o, 1);
+		values.splice(o, 2, s);
+		o--;
+	}
+	else if (operators[o] == "-") {
+		var v = min(values[o], values[o+1]);
+		operators.splice(o, 1);
+		values.splice(o, 2, v);
+		o--;
+	}
+}
+result = values[0];
+console.log("Результат = " + result);
